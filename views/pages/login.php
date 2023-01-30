@@ -1,8 +1,16 @@
+<?php
+use App\Services\Page;
+?>
+
 <!doctype html>
 <html lang="en">
-<?php require_once "views/components/head.php" ?>
+<?php
+Page::part("head");
+?>
 <body>
-<?php require_once "views/components/navbar.php" ?>
+<?php
+Page::part("navbar")
+?>
 <div class="container">
     <form class="mt-5">
         <div class="mb-3">
@@ -22,7 +30,5 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-
-
 </body>
 </html>
