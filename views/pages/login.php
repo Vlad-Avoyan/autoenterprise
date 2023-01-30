@@ -1,5 +1,7 @@
 <?php
+
 use App\Services\Page;
+
 ?>
 
 <!doctype html>

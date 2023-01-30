@@ -7,7 +7,16 @@ class Router
 
     private static array $list = [];
 
-    public static function page($uri, $page_name) {
+
+    /**
+     * the method registers the rout for a normal page
+     * @param $uri
+     * @param $page_name
+     * @return void
+     */
+
+    public static function page($uri, $page_name)
+    {
 
         self::$list[] = [
             "uri" => $uri,
@@ -15,9 +24,14 @@ class Router
         ];
     }
 
-    public static function enable() {
-        $query = $_GET['q'];
+    /**
+     * method for opening pages after registration
+     * @return void
+     */
 
+    public static function enable()
+    {
+        $query = $_GET['q'];
         foreach (self::$list as $route) {
             if ($route['uri'] === '/' . $query) {
                 require_once "views/pages/" . $route['page'] . ".php";
@@ -27,7 +41,13 @@ class Router
         self::not_found_page();
     }
 
-    private static function not_found_page() {
+    /**
+     * method to generate error for unregistered rout
+     * @return void
+     */
+
+    private static function not_found_page()
+    {
         require_once "views/errors/404.php";
     }
 
