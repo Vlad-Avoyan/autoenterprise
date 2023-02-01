@@ -5,12 +5,21 @@ namespace App\Services;
 class App
 {
 
+    /**
+     * start our app (Database)
+     * @return void
+     */
+
     public static function start()
     {
         self::libs();
         self::db();
     }
 
+    /**
+     * connect to library
+     * @return void
+     */
     public static function libs()
     {
         $config = require_once "config/app.php";
@@ -20,14 +29,20 @@ class App
         }
     }
 
+    /**
+     * connect to database (RB)
+     * @return void
+     *
+     */
+
     public static function db()
     {
         $config = require_once "config/db.php";
 
 
         if ($config['enable']) {
-            \R::setup( 'mysql:host='.$config['host'].';port=3306 dbname='.$config['dbname'].'',
-                ''.$config['username'].'', ''.$config['password'].'' );
+            \R::setup('mysql:host=' . $config['host'] . ';port=3306 dbname=' . $config['dbname'] . '',
+                '' . $config['username'] . '', '' . $config['password'] . '');
 
             if (!\R::testConnection()) {
                 die("Error database connect");

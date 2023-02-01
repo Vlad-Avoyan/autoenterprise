@@ -14,7 +14,7 @@ Page::part("head");
 Page::part("navbar")
 ?>
 <div class="container">
-    <form class="mt-5">
+    <form class="mt-5" action="/auth/register" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <h3 class="mt-4">Sign Up</h3>
             <label for="email" class="form-label">Email address</label>
