@@ -41,8 +41,8 @@ class App
 
 
         if ($config['enable']) {
-            \R::setup('mysql:host=' . $config['host'] . ';port=3306 dbname=' . $config['dbname'] . '',
-                '' . $config['username'] . '', '' . $config['password'] . '');
+            \R::setup('mysql:host=' . $config['host'] . ';port='. $config['port'] .' dbname=' . $config['dbname'] . '', '' .
+                $config['username'], $config['password'] );
 
             if (!\R::testConnection()) {
                 die("Error database connect");

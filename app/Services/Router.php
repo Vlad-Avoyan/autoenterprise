@@ -35,13 +35,15 @@ class Router
      * @return void
      */
 
-    public static function post($uri, $class, $method)
+    public static function post($uri, $class, $method, $form_data = false, $files = false)
     {
         self::$list[] = [
             "uri" => $uri,
             "class" => $class,
             "method" => $method,
             "post" => true,
+            "formdata" => $form_data,
+            "files" => $files
         ];
     }
 
@@ -60,7 +62,13 @@ class Router
                 if ($route['post'] === true && $_SERVER["REQUEST_METHOD"] === "POST") {
                     $action = new $route["class"];
                     $method = $route["method"];
-                    $action->$method();
+                    if ($route['formdata'] && $route['files']) {
+                        $action->$method($_POST, $_FILES);
+                    } elseif ($route['formdata'] && !$route['files']) {
+                        $action->$method($_POST);
+                    } else {
+                        $action->$method($_POST);
+                    }
                     die();
                 } else {
                     require_once "views/pages/" . $route['page'] . ".php";
@@ -68,7 +76,7 @@ class Router
                 }
             }
         }
-        self::not_found_page();
+        self::error('404');
     }
 
     /**
@@ -76,9 +84,14 @@ class Router
      * @return void
      */
 
-    private static function not_found_page()
+    public static function error($error)
     {
-        require_once "views/errors/404.php";
+        require_once "views/errors/" . $error . ".php";
     }
 
+    public static function redirect($page)
+    {
+        require_once "views/pages/" . $page . ".php";
+        die();
+    }
 }
